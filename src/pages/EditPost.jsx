@@ -35,7 +35,7 @@ export default function EditPost() {
   }, [id, listLoading, getPost, fetchPost]);
 
   if (notFound) {
-    return <Navigate to="/posts" replace />;
+    return <Navigate to="/posts" replace state={{ notFoundId: id }} />;
   }
 
   if (!post || detailLoading || listLoading) {

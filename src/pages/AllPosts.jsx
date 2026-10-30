@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   Alert,
   Button,
@@ -24,7 +24,9 @@ export default function AllPosts() {
   const [tab, setTab] = useState('publish');
   const { posts, loading, error, refresh, trashPost } = usePosts();
   const navigate = useNavigate();
+  const location = useLocation();
   const [trashError, setTrashError] = useState('');
+  const notFoundId = location.state?.notFoundId;
 
   const filtered = posts.filter((p) => p.status === tab);
 
@@ -64,6 +66,15 @@ export default function AllPosts() {
         <Tab value="draft" label="Drafts" />
         <Tab value="trash" label="Trashed" />
       </Tabs>
+      {notFoundId ? (
+        <Alert
+          severity="warning"
+          sx={{ mb: 2 }}
+          onClose={() => navigate('/posts', { replace: true })}
+        >
+          {`Article not found (id ${notFoundId}). Showing All Posts.`}
+        </Alert>
+      ) : null}
       {trashError ? (
         <Alert severity="error" sx={{ mb: 2 }}>
           {trashError}
