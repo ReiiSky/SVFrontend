@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
-import { Alert, CircularProgress, Typography } from '@mui/material';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { CircularProgress, Typography } from '@mui/material';
 import PostForm from '../components/PostForm';
 import { usePosts } from '../store/PostsContext';
 
@@ -35,7 +35,7 @@ export default function EditPost() {
   }, [id, listLoading, getPost, fetchPost]);
 
   if (notFound) {
-    return <Alert severity="error">Article not found</Alert>;
+    return <Navigate to="/posts" replace />;
   }
 
   if (!post || detailLoading || listLoading) {

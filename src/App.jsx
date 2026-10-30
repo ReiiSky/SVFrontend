@@ -16,6 +16,7 @@ export default function App() {
           <Route path="/posts/new" element={<AddPost />} />
           <Route path="/posts/:id/edit" element={<EditPost />} />
           <Route path="/preview" element={<Preview />} />
+          <Route path="*" element={<Navigate to="/posts" replace />} />
         </Route>
       </Routes>
     </PostsProvider>
